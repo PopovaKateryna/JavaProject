@@ -1,0 +1,49 @@
+
+.content {
+    padding: 20px;
+    display: flex; /* Add this line */
+    flex-wrap: wrap; /* Add this line */
+    justify-content: space-around; /* Add this line */
+}
+.course-card {
+    width: calc(20% - 10px);
+    background: #333;
+    margin: 5px;
+    text-align: center;
+    border-radius: 5px;
+}
+.course-card h3 a {
+    text-decoration: none; /* видаляє підкреслення */
+    color: inherit; /* спадковує колір тексту від батьківського елементу */
+}
+.course-card:hover {
+    background-color: #a8a8a8; /* світло-сірий колір фону для підсвічування */
+    cursor: pointer; /* змінює курсор, щоб показати, що елемент можна натиснути */
+    /* Додайте будь-які інші стилі, які ви хочете застосувати під час наведення */
+}
+.course-card img {
+    max-width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.course-card h3 {
+    margin: 0;
+    padding: 10px;
+}
+
+/* Ensure the cards do not break into new lines on larger screens */
+@media (max-width: 1200px) {
+    .course-card {
+        width: calc(25% - 10px);
+    }
+}
+@media (max-width: 768px) {
+    .course-card {
+        width: calc(50% - 10px);
+    }
+}
+@media (max-width: 480px) {
+    .course-card {
+        width: 100%;
+    }
+}

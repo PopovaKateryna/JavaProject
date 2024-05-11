@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Virtual Learning Environment</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Virtual Learning Environment</h1>
+    </div>
+
+    <form class="registration-form" th:action="@{/api/auth/signin}" method="post" id="loginForm">
+        <h2>Login</h2>
+
+        <input type="email" placeholder="Email" id="email" name="email">
+        <input type="password" placeholder="Password" id="password" name="password">
+        <div class="button-container">
+            <button type="submit">Login</button>
+        </div>
+    </form>
+
+    <div class="footer">
+        <p>Virtual Learning Environment &copy; 2023</p>
+    </div>
+    <script th:inline="javascript">
+document.addEventListener('DOMContentLoaded', function(event) {
+  var form = document.getElementById('loginForm');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    var loginRequest = {
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value
+    };
+
+    fetch(form.getAttribute('action'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(loginRequest)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Successful login:', data);
+      localStorage.setItem('jwt', 'Bearer ' + data.token); // Save the JWT to local storage
+      window.location.href = '/index'; // Redirect to the home page or user interface
+    })
+    .catch(error => {
+      console.error('Error during authentication:', error);
+    });
+  });
+});
+</script>
+
+
+</body>
+</html>

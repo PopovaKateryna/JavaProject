@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Virtual Learning Environment</title>
+</head>
+<body>
+<div class="header">
+    <h1>Virtual Learning Environment</h1>
+</div>
+<div class="nav-bar">
+    <a href="/index">Home</a>
+    <a href="/courses">Courses</a>
+    <a href="#assignments">Assignments</a>
+    <a href="#discussion">Discussion</a>
+    <a href="#grades">Grades</a>
+</div>
+
+<div class="content">
+    <!-- Course cards will be added here by JavaScript -->
+</div>
+
+<div class="footer">
+    <p>Virtual Learning Environment &copy; 2023</p>
+</div>
+
+<script>
+    // JavaScript для отримання даних курсів та додавання їх до сторінки
+    fetch('/api/course/all')
+        .then(response => response.json())
+        .then(courses => {
+            let courseContainer = document.querySelector('.content');
+            // Очищуємо контейнер, якщо в ньому вже є карточки курсів
+            courseContainer.innerHTML = '';
+            courses.forEach(course => {
+                let courseCard = `<div class="course-card">
+                                    <img src="img/download.jpg" alt="Course Image" width="90">
+                                    <h3><a href="/course/${course.id}">${course.name}</a></h3>
+                                  </div>`;
+                courseContainer.innerHTML += courseCard;
+            });
+        })
+        .catch(error => console.error('Error fetching courses:', error));
+    </script>
+
+</body>
+</html>
