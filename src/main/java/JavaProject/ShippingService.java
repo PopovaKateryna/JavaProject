@@ -12,3 +12,4 @@ public class ShippingService {
         SpringApplication.run(ShippingService.class, args);
     }
 }
+ 
