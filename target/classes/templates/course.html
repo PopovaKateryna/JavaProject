@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <title>Virtual Learning Environment</title>
+</head>
+<body>
+<div class="header">
+    <h1>Virtual Learning Environment</h1>
+</div>
+<div class="nav-bar">
+    <a href="/index">Home</a>
+    <a href="/courses">Courses</a>
+    <a href="#assignments">Assignments</a>
+    <a href="#discussion">Discussion</a>
+    <a href="#grades">Grades</a>
+</div>
+
+<div class="course">
+    <!-- Деталі курсу будуть виведені тут -->
+</div>
+
+<div class="footer">
+    <p>Віртуальне навчальне середовище &copy; 2023</p>
+</div>
+
+<script>
+// Отримуємо ID курсу з URL
+const courseId = window.location.pathname.split("/")[2];
+
+// Функція для виводу деталей курсу
+function displayCourseDetails(course) {
+    const courseDiv = document.querySelector('.course');
+    courseDiv.innerHTML = `
+        <h2>${course.name}</h2>
+        <p><strong>Start Time:</strong> ${course.timeStart}</p>
+        <p><strong>Finish Time:</strong> ${course.timeFinish}</p>
+        <p><strong>Day of Week:</strong> ${course.weekDay}</p>
+        <p><strong>Students:</strong> ${course.listStudent}</p>
+        <p><strong>Description:</strong> ${course.description}</p>
+        <p><strong>Teacher:</strong> ${course.teacher}</p>
+        <p><strong>Location:</strong> ${course.location}</p>
+        <!-- Додайте інші поля за потребою -->
+    `;
+}
+
+// Запит до сервера для отримання деталей курсу
+fetch(`/api/course/${courseId}`)
+    .then(response => response.json())
+    .then(course => {
+        displayCourseDetails(course);
+    })
+    .catch(error => console.error('Error fetching course details:', error));
+</script>
+
+</body>
+</html>
